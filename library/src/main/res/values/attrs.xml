@@ -7,8 +7,10 @@
         <attr name="ssv_text_font" format="string"/>
         <attr name="ssv_left_shape_text" format="string"/>
         <attr name="ssv_right_shape_text" format="string"/>
+        <attr name="ssv_center_shape_text" format="string"/>
         <attr name="ssv_text_size" format="dimension"/>
         <attr name="ssv_text_color" format="color"/>
         <attr name="ssv_all_text_caps" format="boolean"/>
+        <attr name="ssv_single_shape" format="boolean"/>
     </declare-styleable>
 </resources>

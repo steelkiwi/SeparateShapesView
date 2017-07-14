@@ -35,6 +35,10 @@ public class SeparateShapeDrawable extends Drawable {
     // shape bounds
     private Rect leftShapeBounds;
     private Rect rightShapeBounds;
+    // flag for check if set single shape drawable
+    private boolean isSingleShape;
+    // center drawable text title
+    private String centerShapeTitle;
 
     public SeparateShapeDrawable(Context context) {
         initRect();
@@ -53,8 +57,7 @@ public class SeparateShapeDrawable extends Drawable {
     @Override
     public void draw(@NonNull Canvas canvas) {
         drawBackgroundBitmaps(canvas);
-        drawLeftTitle(canvas);
-        drawRightTitle(canvas);
+        drawText(canvas);
     }
 
     private void drawBackgroundBitmaps(Canvas canvas) {
@@ -65,6 +68,28 @@ public class SeparateShapeDrawable extends Drawable {
             // prepare left and right shape bounds for check if user touch inside
             leftShapeBounds.set(0, 0, leftBitmap.getWidth(), leftBitmap.getHeight());
             rightShapeBounds.set(centerX, 0, centerX + rightBitmap.getWidth(), rightBitmap.getHeight());
+        }
+    }
+
+    private void drawText(Canvas canvas) {
+        String text = getCenterShapeTitle();
+        if(isSingleShape() && text != null) {
+            drawSingleTitle(canvas, text);
+        } else {
+            drawLeftTitle(canvas);
+            drawRightTitle(canvas);
+        }
+    }
+
+    private void drawSingleTitle(Canvas canvas, String text) {
+        if(isDrawTitle() && text != null) {
+            int centerX = canvas.getWidth() / 2;
+            int centerY = canvas.getHeight() / 2;
+            // text size
+            float textWidth = textPaint.measureText(text);
+            float textHeight = getTextHeight(text);
+            // draw text
+            canvas.drawText(text, centerX - textWidth / 2, centerY + textHeight / 2, textPaint);
         }
     }
 
@@ -141,7 +166,7 @@ public class SeparateShapeDrawable extends Drawable {
         textPaint.setTypeface(Typeface.create(typeface, Typeface.BOLD));
     }
 
-    public String getLeftShapeTitle() {
+    private String getLeftShapeTitle() {
         return isTextAllCaps ? leftShapeTitle.toUpperCase() : leftShapeTitle;
     }
 
@@ -149,7 +174,7 @@ public class SeparateShapeDrawable extends Drawable {
         this.leftShapeTitle = leftShapeTitle;
     }
 
-    public String getRightShapeTitle() {
+    private String getRightShapeTitle() {
         return isTextAllCaps ? rightShapeTitle.toUpperCase() : rightShapeTitle;
     }
 
@@ -173,7 +198,7 @@ public class SeparateShapeDrawable extends Drawable {
         isTextAllCaps = textAllCaps;
     }
 
-    public boolean isDrawTitle() {
+    private boolean isDrawTitle() {
         return isDrawTitle;
     }
 
@@ -187,5 +212,21 @@ public class SeparateShapeDrawable extends Drawable {
 
     public Rect getRightShapeBounds() {
         return rightShapeBounds;
+    }
+
+    private boolean isSingleShape() {
+        return isSingleShape;
+    }
+
+    public void setSingleShape(boolean singleShape) {
+        isSingleShape = singleShape;
+    }
+
+    private String getCenterShapeTitle() {
+        return centerShapeTitle;
+    }
+
+    public void setCenterShapeTitle(String centerShapeTitle) {
+        this.centerShapeTitle = centerShapeTitle;
     }
 }

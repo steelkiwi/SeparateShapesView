@@ -22,5 +22,7 @@
         app:ssv_left_shape_text="@string/left_title"
         app:ssv_right_shape_text="@string/right_title"
         app:ssv_text_color="@android:color/white"
-        app:ssv_text_size="14sp"/>
+        app:ssv_text_size="14sp"
+        app:ssv_single_shape="true"
+        app:ssv_center_shape_text="@string/center_title"/>
 </RelativeLayout>

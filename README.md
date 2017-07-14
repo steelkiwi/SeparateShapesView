@@ -38,7 +38,9 @@ First of all, need add SeparateShapesView to your xml layout
     app:ssv_left_shape_text="@string/left_title"
     app:ssv_right_shape_text="@string/right_title"
     app:ssv_text_color="@android:color/white"
-    app:ssv_text_size="14sp"/>
+    app:ssv_text_size="14sp"
+    app:ssv_single_shape="false"
+    app:ssv_center_shape_text="@string/center_title"/>
 ```
 
 You can customize view, through this attributes
@@ -51,12 +53,15 @@ You can customize view, through this attributes
 * app:ssv_right_shape_text -  right shape title
 * app:ssv_text_color - shape text color
 * app:ssv_text_size - shape text size
+* app:ssv_single_shape - set flag to not divide shapes
+* app:ssv_center_shape_text -  shape center text
 
 Inside your client code need to implement listener SeparateShapesView.OnButtonClickListener to handle view click state.
 OnButtonClickListener methods:
 
 * boolean onLeftButtonClick()
 * boolean onRightButtonClick()
+* boolean onMiddleButtonClick() // will call when use ssv_single_shape and ssv_center_shape_text is not null
 
 If any of the method will returns true, view will animate. Otherwise nothing happens
 

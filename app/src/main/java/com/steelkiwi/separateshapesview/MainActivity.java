@@ -31,4 +31,10 @@ public class MainActivity extends AppCompatActivity implements SeparateShapesVie
         Toast.makeText(this, "Right button click", Toast.LENGTH_SHORT).show();
         return true;
     }
+
+    @Override
+    public boolean onMiddleButtonClick() {
+        Toast.makeText(this, "Center button click", Toast.LENGTH_SHORT).show();
+        return true;
+    }
 }

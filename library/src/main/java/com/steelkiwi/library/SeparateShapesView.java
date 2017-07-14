@@ -53,6 +53,8 @@ public class SeparateShapesView extends ViewGroup implements View.OnTouchListene
     private String leftShapeTitle;
     // left drawable text title
     private String rightShapeTitle;
+    // center drawable text title
+    private String centerShapeTitle;
     // drawable text size
     private float textSize;
     // drawable text color
@@ -64,6 +66,8 @@ public class SeparateShapesView extends ViewGroup implements View.OnTouchListene
     private int previousHeight;
     // shape buttons listener
     private OnButtonClickListener onButtonClickListener;
+    // flag for check if set single shape drawable
+    private boolean isSingleShape;
 
     public interface OnButtonClickListener {
         /**
@@ -71,6 +75,7 @@ public class SeparateShapesView extends ViewGroup implements View.OnTouchListene
          * */
         boolean onLeftButtonClick();
         boolean onRightButtonClick();
+        boolean onMiddleButtonClick();
     }
     public SeparateShapesView(Context context) {
         super(context);
@@ -108,6 +113,8 @@ public class SeparateShapesView extends ViewGroup implements View.OnTouchListene
         drawable.setLeftShapeTitle(getLeftShapeTitle());
         drawable.setRightShapeTitle(getRightShapeTitle());
         drawable.setTypeface(obtainTypeface(getFontName()));
+        drawable.setSingleShape(isSingleShape());
+        drawable.setCenterShapeTitle(getCenterShapeTitle());
     }
 
     private void obtainViewAttributes(AttributeSet set) {
@@ -123,7 +130,9 @@ public class SeparateShapesView extends ViewGroup implements View.OnTouchListene
                     getResources().getDimensionPixelSize(R.dimen.default_text_size)));
             setTextColor(array.getColor(R.styleable.SeparateShapesView_ssv_text_color,
                     ContextCompat.getColor(getContext(), android.R.color.white)));
-            setTextAllCaps(array.getBoolean(R.styleable.SeparateShapesView_ssv_all_text_caps, true));
+            setTextAllCaps(array.getBoolean(R.styleable.SeparateShapesView_ssv_all_text_caps, false));
+            setSingleShape(array.getBoolean(R.styleable.SeparateShapesView_ssv_single_shape, false));
+            setCenterShapeTitle(array.getString(R.styleable.SeparateShapesView_ssv_center_shape_text));
             array.recycle();
         }
     }
@@ -171,7 +180,7 @@ public class SeparateShapesView extends ViewGroup implements View.OnTouchListene
     }
 
     private void onDrawableLayout() {
-        int drawableWidth = getWidth() / 2 - getCurrentMiddleSpace();
+        int drawableWidth = getWidth() / 2 - (isSingleShape() && getCenterShapeTitle() != null ? 0 : getCurrentMiddleSpace());
         int drawableHeight = getHeight();
         if(drawableWidth > Constants.ZERO && drawableHeight > Constants.ZERO) {
             drawable.createLeftDrawablePart(getLeftShapeDrawable(), drawableWidth, drawableHeight);
@@ -188,9 +197,23 @@ public class SeparateShapesView extends ViewGroup implements View.OnTouchListene
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         if(isAnimationFinished()) {
-            onTouch(event);
+            if(isSingleShape() && getCenterShapeTitle() != null) {
+                return onParentTouch();
+            } else {
+                return onTouch(event);
+            }
         }
         return false;
+    }
+
+    private boolean onParentTouch() {
+        if(onButtonClickListener != null) {
+            boolean isExpand = onButtonClickListener.onMiddleButtonClick();
+            if(isExpand) {
+                expand();
+            }
+        }
+        return true;
     }
 
     private boolean onTouch(MotionEvent event) {
@@ -475,6 +498,22 @@ public class SeparateShapesView extends ViewGroup implements View.OnTouchListene
 
     private void setTextAllCaps(boolean textAllCaps) {
         isTextAllCaps = textAllCaps;
+    }
+
+    private boolean isSingleShape() {
+        return isSingleShape;
+    }
+
+    private void setSingleShape(boolean singleShape) {
+        isSingleShape = singleShape;
+    }
+
+    private String getCenterShapeTitle() {
+        return centerShapeTitle;
+    }
+
+    private void setCenterShapeTitle(String centerShapeTitle) {
+        this.centerShapeTitle = centerShapeTitle;
     }
 
     public void setOnButtonClickListener(OnButtonClickListener onButtonClickListener) {
