@@ -68,7 +68,7 @@ OnButtonClickListener methods:
 * boolean onRightButtonClick()
 * boolean onMiddleButtonClick() // will call when use ssv_single_shape and ssv_center_shape_text is not null
 
-If any of the method will returns true, view will animate. Otherwise nothing happens
+If any of the methods will returns true, view will animate. Otherwise nothing happens
 
 # License
 
