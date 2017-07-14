@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MorphingView</string>
+    <string name="left_title">Left text</string>
+    <string name="right_title">Right text</string>
+</resources>

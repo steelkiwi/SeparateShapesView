@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <com.steelkiwi.library.SeparateShapesView
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="@dimen/margin_40"
+        android:layout_marginLeft="@dimen/margin_40"
+        android:layout_marginBottom="@dimen/margin_20"
+        app:ssv_all_text_caps="true"
+        app:ssv_done_drawable="@drawable/done"
+        app:ssv_left_shape_drawable="@drawable/left_rounded_corner_drawable"
+        app:ssv_right_shape_drawable="@drawable/right_rounded_corner_drawable"
+        app:ssv_left_shape_text="@string/left_title"
+        app:ssv_right_shape_text="@string/right_title"
+        app:ssv_text_color="@android:color/white"
+        app:ssv_text_size="14sp"/>
+</RelativeLayout>
