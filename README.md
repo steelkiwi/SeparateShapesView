@@ -1,6 +1,7 @@
 # SeparateShapesView
 
 [![Made in SteelKiwi](https://github.com/steelkiwi/SeparateShapesView/blob/master/assets/made_in_steelkiwi.png)](http://steelkiwi.com/blog/)
+[ ![Download](https://api.bintray.com/packages/soulyaroslav/maven/separate-shapes-view/images/download.svg) ](https://bintray.com/soulyaroslav/maven/separate-shapes-view/_latestVersion)
 
 # Description
 
@@ -16,6 +17,10 @@ Simple custom ViewGroup with two shapes inside and simple scale animation
 For project API 21+.
 
 ## Gradle
+
+```gradle
+compile 'com.steelkiwi:separate-shapes-view:1.1.0'
+```
 
 # Usage
 
